@@ -56,7 +56,7 @@ public class SQLDroidConnection implements Connection {
         }
         else {
             // there does not seem to be any possibility of error handling.
-            // So we could check that the url starts with SqldroidDriver.sqldroidPrefix
+            // So we could check that the url starts with SQLDroidDriver.sqldroidPrefix
             // but if it doesn't there's nothing we can do (no Exception is specified)
             // so it has to be assumed that the URL is valid when passed to this method.
             dbQname = url.substring(SQLDroidDriver.sqldroidPrefix.length());
@@ -107,7 +107,7 @@ public class SQLDroidConnection implements Connection {
     }
 
     /** This will create and return an exception.  For API levels less than 9 this will return
-     * a SqldroidSQLException, for later APIs it will return a SQLException. 
+     * a SQLDroidSQLException, for later APIs it will return a SQLException. 
      */
     public static SQLException chainException (android.database.SQLException sqlException)  {
         if ( sqlThrowable < 0 || sqlThrowable >= 9 ) {
@@ -123,12 +123,12 @@ public class SQLDroidConnection implements Connection {
             }
         }
         // if the code above worked correctly, then the exception will have been returned.  Otherwise, we need
-        // to go through this clause and create a SqldroidSQLException
+        // to go through this clause and create a SQLDroidSQLException
         try {
             // avoid a direct reference to the sqldroidSQLException so that app > API level 9 do not need that class.
-            final Constructor<?> c = SQLDroidConnection.class.getClassLoader().loadClass("org.sqldroid.SqldroidSQLException").getDeclaredConstructor(new Class[] {android.database.SQLException.class});
-            // SqldroidSQLException is an instance of (direct subclass of) SQLException, so the cast below is correct although
-            // the instance created will always be a SqldroidSQLException
+            final Constructor<?> c = SQLDroidConnection.class.getClassLoader().loadClass("org.sqldroid.SQLDroidSQLException").getDeclaredConstructor(new Class[] {android.database.SQLException.class});
+            // SQLDroidSQLException is an instance of (direct subclass of) SQLException, so the cast below is correct although
+            // the instance created will always be a SQLDroidSQLException
             return (SQLException)c.newInstance(new Object[]{sqlException});
         } catch (Exception e) {
             return new SQLException ("Unable to Chain SQLException " + sqlException.getMessage());
@@ -242,7 +242,7 @@ public class SQLDroidConnection implements Connection {
     public String nativeSQL(String sql) throws SQLException {
         System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
         sqlitedb.execSQL(sql);
-        return "Sqldroid: no return info available from sqlite";
+        return "SQLDroid: no return info available from sqlite";
     }
 
     @Override
@@ -376,7 +376,7 @@ public class SQLDroidConnection implements Connection {
 
     @Override
     protected void finalize() throws Throwable {
-        Log.v("Sqldroid", " --- Finalize Sqldroid, closing db.");
+        Log.v("SQLDroid", " --- Finalize SQLDroid, closing db.");
         if (sqlitedb != null) {
             sqlitedb.close();
         }
@@ -461,9 +461,9 @@ public class SQLDroidConnection implements Connection {
         // TODO Auto-generated method stub
 
     }
-    
+
     // methods added for JDK7 compilation
-    
+
     public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
         // TODO Auto-generated method stub
     }
@@ -485,5 +485,4 @@ public class SQLDroidConnection implements Connection {
     public void setSchema(String schema) throws SQLException {
         // TODO Auto-generated method stub
     }
-  }
 }
