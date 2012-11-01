@@ -35,7 +35,7 @@ public class SQLiteDatabase {
     return pDb != null;
   }
 
-  public static SQLiteDatabase openDatabase(String dbQname, Object object, int i) throws SQLiteException {
+  public static SQLiteDatabase openDatabase(String dbQname, CursorFactory notUsed, int i) throws SQLiteException {
     //SQLite.
     final PointerByReference ppDb = new PointerByReference();
     //SQLite.sqlite3_db_filename(null, dbQname);
@@ -163,6 +163,8 @@ public class SQLiteDatabase {
       return SQLite.sqlite3_changes(pDb);
   }
 
-
+  public interface CursorFactory {
+    public abstract Cursor  newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query);
+  }
 
 }
