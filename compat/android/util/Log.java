@@ -10,24 +10,29 @@ import org.apache.log4j.Logger;
 
 public class Log {
 
-  public static void i(String string, String sql) {
-    Logger.getLogger(Log.class).info(string + ":" + sql);    
+  public static int i(String string, String sql) {
+    Logger.getLogger(Log.class).info(string + ":" + sql);
+    return 1;
   }
 
-  public static void v(String string, String sql) {
+  public static int v(String string, String sql) {
     Logger.getLogger(Log.class).debug(string + ":" + sql);    
+    return 1;
   }
 
-  public static void e(String string, String sql) {
+  public static int e(String string, String sql) {
     Logger.getLogger(Log.class).error(string + ":" + sql);    
+    return 1;
   }
 
-  public static void d(String string, String sql) {
+  public static int d(String string, String sql) {
     Logger.getLogger(Log.class).debug(string + ":" + sql);    
+    return 1;
   }
 
-  public static void e(String string, String string2, Exception e) {
+  public static int e(String string, String string2, Exception e) {
     Logger.getLogger(Log.class).error(string + ":" + string2, e);
+    return 1;
   }
 
 }
